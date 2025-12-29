@@ -8,16 +8,13 @@ import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarRail,
 } from "@/components/ui/sidebar"
-import { MenuIcon } from "lucide-react"
 
 // This is sample data.
 const data = {
   teams: [
     {
-      logo: MenuIcon ,
-      plan: "Youtube",
+      plan: "Book Store",
     },
 
   ],
@@ -32,7 +29,6 @@ export function AppSidebar({ ...props }) {
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarRail />
     </Sidebar>
   )
 }

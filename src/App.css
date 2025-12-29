@@ -14,6 +14,27 @@ li {
 a {
   text-decoration: none;
 }
+@keyframes marquee {
+  0% {
+    /* يبدأ من أقصى اليمين خارج الشاشة */
+    transform: translateX(100%);
+  }
+  100% {
+    /* ينتهي في أقصى اليسار خارج الشاشة */
+    transform: translateX(-100%);
+  }
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 15s linear infinite; /* زودت الوقت شوية عشان الحركة تكون أهدأ */
+  will-change: transform; /* لتحسين أداء الحركة ومنع الـ Lag */
+}
+
+.marquee-hover-stop:hover {
+  animation-play-state: paused;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

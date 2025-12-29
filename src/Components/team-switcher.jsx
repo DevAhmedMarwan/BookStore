@@ -1,69 +1,34 @@
-"use client"
-
-import * as React from "react"
-import { ChevronsUpDown, Plus } from "lucide-react"
+"use client";
 
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar"
-
-export function TeamSwitcher({
-  teams
-}) {
-  const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
-
+} from "@/components/ui/dropdown-menu";
+import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import { useState } from "react";
+import { FaBars } from "react-icons/fa";
+export function TeamSwitcher({ teams }) {
+  const [activeTeam, setActiveTeam] = useState(teams[0]);
   if (!activeTeam) {
-    return null
+    return null;
   }
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>  
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-              <div className="!pl-7">
-                <activeTeam.logo className="size-6 !mr-3" />
+            <div size="md" className="flex items-center gap-3 !pt-5">
+              <div className="!pl-6 text-lg">
+                <FaBars className="flex justify-center items-center cursor-pointer" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate text-2xl font-bold">{activeTeam.plan}</span>
+                <span className="truncate text-lg font-bold">
+                  {activeTeam.plan}
+                </span>
               </div>
-            </SidebarMenuButton>
+            </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            align="start"
-            side={isMobile ? "bottom" : "right"}
-            sideOffset={4}>
-            <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Teams
-            </DropdownMenuLabel>
-            {teams.map((team, index) => (
-              <DropdownMenuItem key={team.name} onClick={() => setActiveTeam(team)} className="gap-2 p-2">
-                <div className="flex size-6 items-center justify-center rounded-sm border">
-                  <team.logo className="size-4 shrink-0" />
-                </div>
-                {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            ))}
-            <DropdownMenuSeparator />
-          </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>

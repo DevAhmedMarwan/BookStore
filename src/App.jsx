@@ -1,13 +1,16 @@
-import './App.css'
-import Youtube from './pages/Youtube'
+import "./App.css";
+import { useEffect } from "react";
+import { initAuthListener } from "@/Store/useAuthStore";
+import Books from "./pages/Books";
 
 function App() {
+  useEffect(() => {
+    const unsub = initAuthListener();
+    return () => unsub();
+  }, []);
+  
 
-  return (
-    <>
-      <Youtube />
-    </>
-  )
+  return <Books />;
 }
 
-export default App
+export default App;

@@ -1,46 +1,62 @@
-import { ChevronRight } from "lucide-react";
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
-
+import { SidebarGroup, SidebarMenu } from "@/components/ui/sidebar";
+import { House, MapPinHouse } from "lucide-react";
+import { Link } from "react-router-dom";
+import useAuthStore from "@/Store/useAuthStore";
 export function NavMain() {
+  const links = [
+    { title: "Books", href: "/", icons: <House /> },
+    { title: "Maps", href: "maps", icons: <MapPinHouse /> },
+    { title: "About", href: "maps", icons: <MapPinHouse /> },
+    { title: "Service", href: "maps", icons: <MapPinHouse /> },
+    { title: "Shop", href: "maps", icons: <MapPinHouse /> },
+    { title: "Profile", href: "maps", icons: <MapPinHouse /> },
+    { title: "Login", href: "maps", icons: <MapPinHouse /> },
+    { title: "Register", href: "maps", icons: <MapPinHouse /> },
+    { title: "Contact Us", href: "maps", icons: <MapPinHouse /> },
+    { title: "Contact Us", href: "maps", icons: <MapPinHouse /> },
+    { title: "Contact Us", href: "maps", icons: <MapPinHouse /> },
+  ];
+  const user = useAuthStore((state) => state.user);
+  console.log("Navbar user:", user);
+
   return (
     <SidebarGroup>
       <SidebarMenu>
         <div className="!p-4">
-        <button className="flex items-center gap-4 !pl-4 border-2 w-full h-10 rounded-lg hover:bg-amber-400">
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="lucide lucide-house-icon lucide-house"
-            >
-              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-              <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            </svg>
-          </span>
-          Home
-        </button>
+          {links.map((link) => (
+            <Link to={link.href} key={link.title}>
+              <div className="flex items-center gap-4 text-md !pl-4 border-1 w-full h-10 rounded-lg hover:bg-amber-400 !mb-3">
+                <span>{link.icons}</span>
+                <span>{link.title}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="fixed bottom-0 border-t-2 w-[255px] h-15 bg-black">
+          <div className="flex items-center !p-2 gap-3">
+            {user ? (
+              <>
+                <img
+                  className="w-8 h-8 rounded-full"
+                  src={user.photoURL || "/public/img/default.png"}
+                  alt={user.displayName || "User"}
+                />
+                <div className="flex flex-col">
+                  <p className="text-sm font-medium">
+                    {user.displayName || "No Name"}
+                  </p>
+                  <div className="wrap-anywhere">
+                    <p className="text-[9px] text-gray-400">{user.email}</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>Guest</p>
+                <p className="text-xs text-white">Not logged in</p>
+              </>
+            )}
+          </div>
         </div>
       </SidebarMenu>
     </SidebarGroup>
