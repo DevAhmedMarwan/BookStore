@@ -3,13 +3,13 @@ import useViewToggleStore from "@/Store/GridAndList";
 
 const GridToggle = () => {
     const { view, setGrid, setList } = useViewToggleStore();
-    const { darkMode } = useDarkModeToggle();
-  return (
+    const isDark = useDarkModeToggle((state) => state.isDark());
+    return (
     <div className="flex items-center gap-3 border !px-0.5 !py-0.5 rounded-lg bg-gray-300">
       <button
         onClick={setGrid}
         className={`cursor-pointer rounded-sm ${
-          darkMode
+          isDark
             ? "hover:text-white hover:bg-black !px-1 !py-[3px]"
             : "hover:text-white hover:bg-black !px-1 !py-1"
         } ${view === "grid" ? "bg-black text-white" : ""}`}
@@ -35,7 +35,7 @@ const GridToggle = () => {
       <button
         onClick={setList}
         className={`cursor-pointer rounded-sm ${
-          darkMode
+          isDark
             ? "hover:text-white hover:bg-black !px-1 !py-1"
             : "hover:text-white hover:bg-black !px-1 !py-1"
         } ${view === "list" ? "bg-black text-white" : ""}`}

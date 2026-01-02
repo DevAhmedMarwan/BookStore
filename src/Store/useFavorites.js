@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 
 const useFavorites = create(
   persist(
+    //يخلي البيانات تتخزن في localStorage عشان لما المستخدم يغلق الصفحة أو يعيد تحميلها، البيانات تفضل موجودة
     (set) => ({
       favorites: [],
 
